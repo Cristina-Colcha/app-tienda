@@ -1,0 +1,26 @@
+<!-- src/views/edit-category.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Categoría</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Modificar Categoría</h1>
+
+    <form action="/edit-category/<%= category.id %>" method="post">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" value="<%= category.name %>" required>
+        <br>
+        <label for="description">Descripción:</label>
+        <textarea id="description" name="description" rows="4" required><%= category.description %></textarea>
+        <br>
+        <label for="image">URL de la Imagen:</label>
+        <input type="text" id="image" name="image" value="<%= category.image %>" required>
+        <br>
+        <button type="submit">Guardar Cambios</button>
+    </form>
+</body>
+</html>

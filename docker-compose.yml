@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  servicio1:
+    image: microservicio-api
+    ports:
+      - "4001:4001"
+ 
+  servicio2:
+    image: servicio-usuarios
+    ports:
+      - "4002:4002"
+   
+
+  servicio3:
+    image: servicio-productos
+    ports:
+      - "4003:4003"
+   

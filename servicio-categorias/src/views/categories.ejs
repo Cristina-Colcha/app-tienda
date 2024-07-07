@@ -1,0 +1,38 @@
+<!-- src/views/categories.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorías</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Categorías</h1>
+
+    <!-- Formulario de búsqueda -->
+    <form action="/view-categories" method="get">
+        <label for="search">Buscar categorías:</label>
+        <input type="text" id="search" name="search" value="<%= search || '' %>">
+        <button type="submit">Buscar</button>
+    </form>
+
+    <div class="container">
+        <% categories.forEach(category => { %>
+            <div class="category">
+                <h2><%= category.name %></h2>
+                <img src="<%= category.image %>" alt="<%= category.name %>">
+                <p><strong>Descripción:</strong> <%= category.description %></p>
+                <p><strong>ID:</strong> <%= category.id %></p>
+                <form action="/edit-category/<%= category.id %>" method="get">
+                    <button type="submit">Modificar</button>
+                </form>
+                <form action="/delete-category" method="post">
+                    <input type="hidden" name="id" value="<%= category.id %>">
+                    <button type="submit">Eliminar</button>
+                </form>
+            </div>
+        <% }) %>
+    </div>
+</body>
+</html>
