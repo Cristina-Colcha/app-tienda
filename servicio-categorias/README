@@ -1,0 +1,80 @@
+## Category Microservice
+This project is a microservice for managing categories using Node.js and Express. It provides a RESTful API to create, read, update and delete categories.
+
+## Project Structure
+
+microservicio-categorias/
+├── src/
+│   ├── routes/
+│   │   └── categories.js
+│   ├── views/
+│   │   └── categories.ejs
+|   |   └── edit-category.ejs
+│   ├── app.js
+│   └── swagger.js
+├── Dockerfile
+├── package.json
+├── package-lock.json
+└── README.md
+## Requirements
+Node.js (version 14 or higher)
+npm (version 6 or higher)
+Docker (optional, to deploy in container)
+## Installation
+1. Clone this repository to your local machine:
+
+
+git clone https://github.com/tu-usuario/microservicio-categorias.git
+cd microservicio-categorias
+2. Install the project dependencies:
+
+npm install
+## Uso
+Development
+To run the microservice in a development environment, use the following command:
+
+
+npm start
+The service will be available in http://localhost:4001.
+## Docker
+To build and run the microservice in a Docker container, follow these steps:
+
+1. Build the Docker image:
+
+docker build -t microservicio-categorias .
+2. Run the Docker container:
+
+docker run -p 3000:3000 microservicio-categorias
+The service will be available in http://localhost:4001.
+## API Endpoints
+1. Get all categories
+
+GET /api/categories
+2. Get a category by ID
+
+GET /api/categories/:id
+
+3. Update a category
+
+PUT /api/categories/:id
+Parameters in the request body:
+name(string): Category name.
+image(string): Category image URL.
+4. Delete a category
+
+DELETE /api/categories/:id
+Swagger Documentation
+Swagger documentation is available at http://localhost:4002/api-docs.
+
+Contributions
+Cristina Colcha
+Daniel Proaño
+If you wish to contribute to this project, please follow these steps:
+
+Fork the repository.
+Create a new branch ( git checkout -b feature/nueva-funcionalidad).
+Make your changes and commit ( git commit -am 'Agrega nueva funcionalidad').
+Push the branch ( git push origin feature/nueva-funcionalidad).
+Send a pull request.
+License
+This project is licensed under the MIT License.API Endpoints
