@@ -6,28 +6,25 @@ const axios = require('axios');
 
 const app = express();
 
-// Configurar EJS como motor de plantillas
 app.set('view engine', 'ejs');
 app.set('views', './src/views');
 
-app.use(express.static('public')); // Servir archivos estáticos desde la carpeta 'public'
-app.use(express.urlencoded({ extended: true })); // Middleware para parsear datos del formulario
+app.use(express.static('public')); 
+app.use(express.urlencoded({ extended: true })); // Middleware for parsing form data
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 app.use('/categories', categoriesRoutes);
 
-// Redirigir la raíz del servidor a /view-categories
 app.get('/', (req, res) => {
   res.redirect('/view-categories');
 });
-
-// Ruta para mostrar categorías con funcionalidad de búsqueda
+// Path to display categories with search functionality
 app.get('/view-categories', async (req, res) => {
   try {
     const response = await axios.get('https://api.escuelajs.co/api/v1/categories');
     let categories = response.data;
 
-    // Filtrar categorías si se envía un parámetro de búsqueda
+    // Filter categories if a search parameter is submitted
     const { search } = req.query;
     if (search) {
       categories = categories.filter(category =>
