@@ -73,7 +73,7 @@ If you wish to contribute to this project, please follow these steps:
 
 Fork the repository.
 Create a new branch ( git checkout -b feature/nueva-funcionalidad).
-Make your changes and commit ( git commit -am 'Agrega nueva funcionalidad').
+Make your changes and commit ( git commit -am ).
 Push the branch ( git push origin feature/nueva-funcionalidad).
 Send a pull request.
 License
