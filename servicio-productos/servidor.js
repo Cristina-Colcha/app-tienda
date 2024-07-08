@@ -3,10 +3,10 @@ const axios = require('axios');
 const app = express();
 const PORT = 4003;
 
-// Middleware para parsear el cuerpo de las solicitudes como JSON
+// requests as JSON
 app.use(express.json());
 
-// Función para validar las imágenes
+// Function to validate images
 async function validateImage(url) {
   try {
     const response = await axios.get(url);
@@ -16,18 +16,17 @@ async function validateImage(url) {
   }
 }
 
-// Ruta raíz
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/cliente.html');
 });
 
-// Ruta para obtener todos los productos
+// get all products
 app.get('/products', async (req, res) => {
   try {
     let products = await axios.get('https://api.escuelajs.co/api/v1/products');
     products = products.data;
 
-    // Filtrar productos si hay un término de búsqueda
+    // Filter products if there is a search term
     const searchTerm = req.query.q;
     if (searchTerm) {
       products = products.filter(product =>
@@ -35,7 +34,7 @@ app.get('/products', async (req, res) => {
       );
     }
 
-    // Validar imágenes y limitar a 40 productos
+    
     const validProducts = [];
     for (const product of products) {
       if (validProducts.length >= 65) break;
@@ -51,7 +50,7 @@ app.get('/products', async (req, res) => {
   }
 });
 
-// Ruta para obtener un producto por ID
+// get a product by ID
 app.get('/products/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -62,7 +61,7 @@ app.get('/products/:id', async (req, res) => {
   }
 });
 
-// Ruta para actualizar un producto por ID
+// update a product by ID
 app.put('/products/:id', async (req, res) => {
   const { id } = req.params;
   const { title, price } = req.body;
