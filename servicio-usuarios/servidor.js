@@ -1,7 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
-const PORT = 4002;
+
 
 app.use(express.json());
 
@@ -76,6 +76,7 @@ app.delete('/users/:id', async (req, res) => {
 });
 
 // Start server
+const PORT = process.env.PORT || 4002;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
