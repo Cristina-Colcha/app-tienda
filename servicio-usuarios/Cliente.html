@@ -60,6 +60,7 @@
       margin-bottom: 20px;
       padding: 10px;
       border: 1px solid #ccc;
+      overflow: hidden; /* Asegura que el contenedor no se desborde */
     }
     .user-card img {
       width: 100px;
@@ -76,12 +77,11 @@
     }
   </style>
 </head>
-<body>
+<body onload="getAllUsers()">
   <h1>User Management System</h1>
 
   <section>
     <h2>Get All Users</h2>
-    <button onclick="getAllUsers()">Get All Users</button>
     <div id="all-users"></div>
   </section>
 
@@ -120,7 +120,7 @@
   <script>
     async function getAllUsers() {
       try {
-        const response = await fetch('http://localhost:4002/users');
+        const response = await fetch('/users');
         const users = await response.json();
         const usersContainer = document.getElementById('all-users');
         usersContainer.innerHTML = ''; // Limpiar el contenedor antes de agregar usuarios
@@ -136,7 +136,7 @@
     async function getUserById() {
       const userId = document.getElementById('userId').value;
       try {
-        const response = await fetch(`http://localhost:4002/users/${userId}`);
+        const response = await fetch(`/users/${userId}`);
         const user = await response.json();
         const userContainer = document.getElementById('user-by-id');
         userContainer.innerHTML = ''; // Limpiar el contenedor antes de agregar el usuario
@@ -147,17 +147,16 @@
       }
     }
 
-
     async function updateUser() {
       const updateUserId = document.getElementById('updateUserId').value;
       const updateUserName = document.getElementById('updateUserName').value;
       try {
-        const response = await fetch(`http://localhost:4002/users/${updateUserId}`, {
+        const response = await fetch(`/users/${updateUserId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ id: updateUserId, name: updateUserName }) // Include ID and updated name
+          body: JSON.stringify({ id: updateUserId, name: updateUserName }) // Incluir ID y nombre actualizado
         });
         const result = await response.json();
         document.getElementById('update-user-result').textContent = JSON.stringify(result, null, 2);
@@ -169,7 +168,7 @@
     async function deleteUser() {
       const deleteUserId = document.getElementById('deleteUserId').value;
       try {
-        const response = await fetch(`http://localhost:4002/users/${deleteUserId}`, {
+        const response = await fetch(`/users/${deleteUserId}`, {
           method: 'DELETE'
         });
         const result = await response.json();
@@ -184,7 +183,7 @@
       userCard.classList.add('user-card');
 
       const userImage = document.createElement('img');
-      userImage.src = user.avatar; // Assuming 'avatar' is the URL to the user's image
+      userImage.src = user.avatar; // Suponiendo que 'avatar' es la URL de la imagen del usuario
       userImage.alt = user.name + "'s avatar";
       userCard.appendChild(userImage);
 
