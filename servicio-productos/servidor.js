@@ -1,7 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
-const PORT = 4003;
+
 
 // requests as JSON
 app.use(express.json());
@@ -72,7 +72,7 @@ app.put('/products/:id', async (req, res) => {
     res.status(500).json({ message: 'Error updating product', error });
   }
 });
-
+const PORT = process.env.PORT || 4002;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
