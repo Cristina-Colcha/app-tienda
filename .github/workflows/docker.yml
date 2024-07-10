@@ -12,6 +12,9 @@ jobs:
     env:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      EC2_HOST: ${{ secrets.EC2_HOST }}
+      EC2_USER: ${{ secrets.EC2_USER }}
+      EC2_KEY: ${{ secrets.EC2_KEY }}
  
     steps:
       - name: Checkout code
@@ -46,3 +49,24 @@ jobs:
           file: ./servicio-usuarios/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/servicio-usuarios:latest
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}  
+          script: |
+            docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
+            docker pull ${{ secrets.DOCKER_USERNAME }}/servicio-categorias:latest
+            docker pull ${{ secrets.DOCKER_USERNAME }}/servicio-productos:latest
+            docker pull ${{ secrets.DOCKER_USERNAME }}/servicio-usuarios:latest
+            docker stop servicio-categoria || true
+            docker stop servicio-productos || true
+            docker stop servicio-usuarios || true
+            docker rm servicio-categoria || true
+            docker rm servicio-productos || true
+            docker rm servicio-usuarios || true
+            docker run -d --name servicio-categoria -p 4001:4001 ${{ secrets.DOCKER_USERNAME }}/servicio-categorias:latest
+            docker run -d --name servicio-productos -p 4003:4003 ${{ secrets.DOCKER_USERNAME }}/servicio-productos:latest
+            docker run -d --name servicio-usuarios -p 4002:4002 ${{ secrets.DOCKER_USERNAME }}/servicio-usuarios:latest
