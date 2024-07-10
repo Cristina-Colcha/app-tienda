@@ -72,7 +72,7 @@ app.put('/products/:id', async (req, res) => {
     res.status(500).json({ message: 'Error updating product', error });
   }
 });
-const PORT = process.env.PORT || 4002;
+const PORT = process.env.PORT || 4003;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
