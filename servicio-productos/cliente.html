@@ -85,7 +85,7 @@
   <script>
     async function fetchProducts() {
       try {
-        const response = await fetch('http://localhost:4003/products');
+        const response = await fetch('/products');
         const products = await response.json();
         displayProducts(products);
       } catch (error) {
@@ -96,7 +96,7 @@
     async function fetchProductById() {
       const productId = document.getElementById('product-id').value;
       try {
-        const response = await fetch(`http://localhost:4003/products/${productId}`);
+        const response = await fetch(`/products/${productId}`);
         const product = await response.json();
         displayProductDetails(product);
       } catch (error) {
@@ -107,7 +107,7 @@
     async function searchProduct() {
       const searchTerm = document.getElementById('search-term').value;
       try {
-        const response = await fetch(`http://localhost:4003/products?q=${searchTerm}`);
+        const response = await fetch(`/products?q=${searchTerm}`);
         const products = await response.json();
         displayProducts(products);
       } catch (error) {
@@ -120,7 +120,7 @@
       const title = document.getElementById('update-title').value;
       const price = document.getElementById('update-price').value;
       try {
-        const response = await fetch(`http://localhost:4003/products/${productId}`, {
+        const response = await fetch(`/products/${productId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
